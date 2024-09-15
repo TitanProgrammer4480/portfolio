@@ -1,0 +1,34 @@
+name: Deploy to Vercel
+
+on:
+  discussion:
+    types: [created, edited, deleted]
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+              node-version: [18.x, 20.x, 22.x]
+
+
+        steps:
+            - uses: actions/checkout@v4
+            - name: Set up Node ${{ matrix.node-version }}
+              uses: actions/setup-node@v4
+              with:
+                node-version: ${{ matrix.node-version }}
+                cache: 'npm'
+            
+            - name: Install Vercel CLI
+              run: |
+                npm i -g vercel
+                npm i -g vercel@latest
+
+            - name: Link to Vercel
+              run: |
+                vercel link --yes --project portfolio
+
+            - name: Update to Vercel
+              run: |
+                vercel
