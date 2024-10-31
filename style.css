@@ -56,6 +56,10 @@ c-list {
   margin-bottom:10px;
 }
 
+.mh-l {
+  min-height: 400px;
+}
+
 .btn {
   background-color: white;
   color: black;
